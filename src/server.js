@@ -2,6 +2,8 @@ const express = require("express");
 const { adminAuth, userAuth } = require("./middleware/adminAuth");
 const { errorHandler } = require("./middleware/errorHandler");
 const { User } = require("./models/user");
+const validator = require("validator");
+
 const app = express();
 
 // ?Middleware
@@ -61,8 +63,13 @@ app.patch("/user", async (req, res) => {
     const isUpdateAllowed = Object.keys(data).every((k) =>
       ALLOWED_FIELDS.includes(k)
     );
-    if (data.skills.length > 11) {
+    if (data.skills != null && data.skills.length > 11) {
       throw new Error("Skills should be less than 11");
+    }
+    if (data.photoUrl != null) {
+      if (!validator.isURL(data.photoUrl)) {
+        throw new Error(" Required valid url");
+      }
     }
 
     if (!isUpdateAllowed) {
@@ -111,7 +118,12 @@ app.post("/signup", async (req, res) => {
       "about",
       "gender",
     ];
-    if (data.skills.length > 11) {
+    if (data.photoUrl != null) {
+      if (!validator.isURL(data.photoUrl)) {
+        throw new Error(" Required valid url");
+      }
+    }
+    if (data.skills != null && data.skills.length > 11) {
       throw new Error("Skills should be less than 11");
     }
     const isUpdateAllowed = Object.keys(data).every((k) =>
@@ -126,7 +138,7 @@ app.post("/signup", async (req, res) => {
     await userObj.save();
     res.send("User Added");
   } catch (ex) {
-    console.log(ex);
+    console.log("Something went wrong while signUp" + ex.message);
   }
 });
 

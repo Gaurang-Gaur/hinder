@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const { Schema } = require("mongoose");
-
+const validator = require("validator");
 const userSchema = new Schema(
   {
     firstName: {
@@ -20,6 +20,11 @@ const userSchema = new Schema(
       lowercase: true,
       unique: true,
       index: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Enter correct emailId");
+        }
+      },
     },
     password: {
       type: String,
@@ -43,6 +48,11 @@ const userSchema = new Schema(
       type: String,
       default:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_M4wMFN1yfKuYtjd6gy1EIw3PxWGeEoVB6g&s",
+      validate(value) {
+        if (!validator.isURL(value)) {
+          throw new Error("Enter correct URL");
+        }
+      },
     },
     about: {
       type: String,
