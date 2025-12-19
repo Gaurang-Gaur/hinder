@@ -54,12 +54,23 @@ app.get("/user/:id", async (req, res) => {
 });
 
 app.patch("/user", async (req, res) => {
-  const userEmailId = req.body;
+  const data = req.body;
 
   try {
+    const ALLOWED_FIELDS = ["age", "skills", "password", "photoUrl", "about"];
+    const isUpdateAllowed = Object.keys(data).every((k) =>
+      ALLOWED_FIELDS.includes(k)
+    );
+    if (data.skills.length > 11) {
+      throw new Error("Skills should be less than 11");
+    }
+
+    if (!isUpdateAllowed) {
+      throw new Error("This field is not allowed to update");
+    }
     const obj = await User.findByIdAndUpdate(
       { _id: "694514bf7bde113e1699e203" },
-      userEmailId,
+      data,
       {
         runValidators: true,
       }
@@ -86,10 +97,32 @@ app.delete("/user/:id", async (req, res) => {
 });
 app.post("/signup", async (req, res) => {
   // console.log(req.body);
-  const userData = req.body;
-  const userObj = new User(userData);
+  const data = req.body;
 
   try {
+    const ALLOWED_FIELDS = [
+      "firstName",
+      "lastName",
+      "emailId",
+      "age",
+      "skills",
+      "password",
+      "photoUrl",
+      "about",
+      "gender",
+    ];
+    if (data.skills.length > 11) {
+      throw new Error("Skills should be less than 11");
+    }
+    const isUpdateAllowed = Object.keys(data).every((k) =>
+      ALLOWED_FIELDS.includes(k)
+    );
+
+    if (!isUpdateAllowed) {
+      throw new Error("This field is not allowed to be added");
+    }
+    const userObj = new User(data);
+
     await userObj.save();
     res.send("User Added");
   } catch (ex) {
