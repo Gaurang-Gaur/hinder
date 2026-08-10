@@ -1,0 +1,41 @@
+@use '../../../styles/variable' as *;
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $background-color;
+  // gap: $spacing-md;
+}
+
+.login-card {
+  width: 400px;
+  padding: $spacing-xl;
+  background-color: $surface-color;
+  border-radius: $radius-lg;
+}
+.title-header {
+  // margin: $spacing-md;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+input {
+  padding-left: $padding-left;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+  height: 48px;
+}

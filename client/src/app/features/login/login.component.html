@@ -1,1 +1,23 @@
-<p>login works!</p>
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header class="title-header">
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form #loginForm="ngForm" (ngSubmit)="handleSubmit(loginForm)">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Email</mat-label>
+          <input matInput name="email" type="email" ngModel placeholder="Enter your email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Password</mat-label>
+          <input matInput name="password" type="password" placeholder="Enter your password" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Login</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
