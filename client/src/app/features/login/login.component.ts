@@ -5,7 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { login } from '../../shared/models/login.model.js';
 @Component({
   selector: 'app-login',
   imports: [MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule],
@@ -15,7 +15,11 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   router = inject(Router);
   handleSubmit(formValue: NgForm) {
-    console.log(formValue.value.email + formValue.value.password, ' i am passed');
+    const loginCredentials: login = {
+      email: formValue.value.email,
+      password: formValue.value.password,
+    };
+    console.log(loginCredentials, ' i am passed');
     this.router.navigate(['/dashboard']);
   }
 }
