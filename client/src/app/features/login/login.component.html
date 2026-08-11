@@ -13,10 +13,16 @@
 
         <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>Password</mat-label>
-          <input matInput name="password" type="password" placeholder="Enter your password" />
+          <input
+            matInput
+            name="password"
+            ngModel
+            type="password"
+            placeholder="Enter your password"
+          />
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit">Login</button>
+        <button class="test" mat-raised-button color="primary" type="submit">Login</button>
       </form>
     </mat-card-content>
   </mat-card>

@@ -35,7 +35,9 @@ mat-form-field {
   width: 100%;
 }
 
-button {
+.test {
   width: 100%;
   height: 48px;
+  color: $primary-color;
+  border: 1px solid $primary-color;
 }
